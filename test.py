@@ -1,9 +1,15 @@
 from main import main
+import unittest
 
 
-def test_main():
-    assert main() == "hello world"
+class TestFunctions(unittest.TestCase):
+
+    def test_main(self):
+        assert main() == "hello world"
+
+    def test_fail(self):
+        assert 1 == 5
 
 
-def test_fail():
-    assert 1 == 5
+if __name__ == '__main__':
+    unittest.main()
