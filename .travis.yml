@@ -5,3 +5,7 @@ python:
 
 script:
   - python tests/test.py
+
+before_install:
+  - "pip install -U pip"
+  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
