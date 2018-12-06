@@ -1,4 +1,4 @@
-from .main import main
+from core.main import main
 import unittest
 
 
