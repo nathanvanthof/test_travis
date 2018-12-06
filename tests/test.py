@@ -1,5 +1,5 @@
 import unittest
-from .main_file import main
+from main_file import main
 
 
 class TestFunctions(unittest.TestCase):
