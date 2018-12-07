@@ -13,7 +13,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(1, 5)
 
     def test_secure(self):
-        data = json.loads(os.environ('example'))
+        data = json.loads(os.environ['example'])
         self.assertEqual(data['a'], 1)
 
 
