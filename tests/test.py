@@ -13,6 +13,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(1, 5)
 
     def test_secure(self):
+        print(os.environ['example'])
         data = ast.literal_eval(os.environ['example'])
         self.assertEqual(data['a'], 1)
 
