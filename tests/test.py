@@ -1,7 +1,7 @@
 import unittest
 from main import main
 import os
-import json
+import ast
 
 
 class TestFunctions(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(1, 5)
 
     def test_secure(self):
-        data = json.loads(os.environ['example'])
+        data = ast.literal_eval(s)(os.environ['example'])
         self.assertEqual(data['a'], 1)
 
 
