@@ -4,11 +4,11 @@ import os
 import ast
 import json
 from demjson import decode
-from deepinfra.messaging.rabbitmq.rabbitmq import RabbitMQ
+import pika
 
 
-def callback(message, acknowledge, unacknowledge, delivery_tag, redelivered):
-    raise Exception(message, acknowledge, unacknowledge, delivery_tag, redelivered)
+def callback(channel, method_frame, properties, body):
+    raise Exception(channel, method_frame, properties, body)
 
 
 class TestFunctions(unittest.TestCase):
@@ -26,10 +26,25 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(data['a'], 1)
 
     def test_rabbitmq(self):
-        rabbit_mq = RabbitMQ([{'host':'', 'port':''}], 'guest', 'guest', '/')
-        rabbit_mq.connect()
-        rabbit_mq.send('test', 'this is a test')
-        rabbit_mq.receive('test', callback)
+        parameters = pika.ConnectionParameters(
+            host='localhost',
+            port=25672,
+            credentials=pika.PlainCredentials('guest', 'guest'),
+            virtual_host='/'
+        )
+        connection = pika.BlockingConnection(parameters)
+        channel = connection.channel()
+        channel.basic_qos(prefetch_count=1)
+        channel.basic_publish(
+            exchange='',
+            routing_key='test',
+            body='text',
+            properties=pika.BasicProperties(
+                delivery_mode=2,
+            )
+        )
+        consumer_tag = channel.basic_consume(consumer_callback=callback, queue='test')
+        channel.start_consuming()
 
 
 if __name__ == '__main__':
