@@ -28,7 +28,7 @@ class TestFunctions(unittest.TestCase):
     def test_rabbitmq(self):
         parameters = pika.ConnectionParameters(
             host='localhost',
-            port=25672,
+            port=5672,
             credentials=pika.PlainCredentials('guest', 'guest'),
             virtual_host='/'
         )
