@@ -4,6 +4,11 @@ import os
 import ast
 import json
 from demjson import decode
+from deepinfra.messaging.rabbitmq.rabbitmq import RabbitMQ
+
+
+def callback(message, acknowledge, unacknowledge, delivery_tag, redelivered):
+    raise Exception(message, acknowledge, unacknowledge, delivery_tag, redelivered)
 
 
 class TestFunctions(unittest.TestCase):
@@ -19,6 +24,12 @@ class TestFunctions(unittest.TestCase):
         # data = ast.literal_eval(os.environ['example'])
         data = decode(os.environ['example'])
         self.assertEqual(data['a'], 1)
+
+    def test_rabbitmq(self):
+        rabbit_mq = RabbitMQ([{'host':'', 'port':''}], 'guest', 'guest', '/')
+        rabbit_mq.connect()
+        rabbit_mq.send('test', 'this is a test')
+        rabbit_mq.receive('test', callback)
 
 
 if __name__ == '__main__':

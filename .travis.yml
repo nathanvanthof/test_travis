@@ -3,9 +3,14 @@ python:
   - "3.5"
   - "3.6"
 
-script:
-  - python tests/test.py
-
 before_install:
   - "pip install -U pip"
   - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
+
+services:
+  - rabbitmq
+
+script:
+  - python tests/test.py
+
+

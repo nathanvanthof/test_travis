@@ -1,1 +1,2 @@
 demjson
+git+ssh://git@github.com/DutchAnalytics/deepinfra.git@master#egg=deepinfra
