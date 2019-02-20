@@ -1,2 +1,0 @@
-demjson
-pika==0.12.0
